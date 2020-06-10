@@ -1,5 +1,5 @@
-from sqlalchemy import Column, String, ForeignKey, Boolean, Numeric, Integer
-from sqlalchemy.orm import relationship
+from sqlalchemy import Column, String, ForeignKey, Boolean, Integer, Numeric
+# from sqlalchemy.orm import relationship
 from database import Base
 
 
@@ -23,7 +23,7 @@ class Profile(Base):
     first_name = Column(String)
     last_name = Column(String)
     username = Column(String, unique=True)
-    mobile_no = Column(Numeric(12))
+    mobile_no = Column(String)
     gender = Column(String)
     user_id = Column(Integer, ForeignKey("users.id"))
     # tenants = relationship("Tenant", back_populates="tenants_id")
