@@ -56,3 +56,10 @@ async def usr_fetch(id: int, db: Session = Depends(get_db)):
     }
 
     return data
+
+
+@app.patch('/api/auth/update/{id}')
+async def usr_update(id: int, usrmod: Usr, db: Session = Depends(get_db)):
+    """Updating User Information like E-Mail, Passsword, Admin Access and Active"""
+
+    return {'message': 'User Information Updated'}
