@@ -4,7 +4,7 @@ from fastapi import FastAPI, Depends
 from database import engine, SessionLocal
 from sqlalchemy.orm import Session
 from models import User, Profile, Home, Tenant
-from schemas import Usr, Prof, House
+from schema import Usr, Prof, House
 
 app = FastAPI()
 
@@ -43,12 +43,13 @@ async def usr_add(usrmod: Usr, db: Session = Depends(get_db)):
 async def usr_fetch(id: int, db: Session = Depends(get_db)):
     """Creating a User and Storing a User Information"""
 
-    user = db.query(User).filter_by(id=id)
-    print(user)
+    user = db.query(User).filter(User.id == id).first()
+
     data = {
-        'email': user[1].email,
-        'password': user[1].passwd,
-        'is_active': user[1].is_active,
-        'is_admin': user[1].is_admin
+        'email': user.email,
+        'password': user.hashed_password,
+        'is_active': user.is_active,
+        'is_admin': user.is_admin
     }
+
     return data
