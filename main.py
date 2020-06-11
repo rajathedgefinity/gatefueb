@@ -28,14 +28,17 @@ async def ping(db: Session = Depends(get_db)):
 @app.post('/api/auth/add')
 async def usr_add(usrmod: Usr, db: Session = Depends(get_db)):
     """Creating a User and Storing a User Information"""
+
     user = User()
+
     user.email = usrmod.email
     user.hashed_password = usrmod.passwd
-    User.is_active = usrmod.is_active
-    User.is_admin = usrmod.is_admin
+    user.is_active = bool(usrmod.is_active)
+    user.is_admin = bool(usrmod.is_admin)
+
     db.add(user)
     db.commit()
-    print(usrmod.email, usrmod.passwd, usrmod.is_active, usrmod.is_admin)
+
     return {'message': 'User Created'}
 
 
